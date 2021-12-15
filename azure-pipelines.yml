@@ -1,5 +1,13 @@
 pool:
       vmImage: ubuntu-latest
+
+variables:
+  # Azure service connection established during pipeline creation
+  azureSubscription: <Name of your Azure subscription>
+  appName: azure-function-app
+  # Agent VM image name
+  vmImageName: 'ubuntu-latest'
+
 steps:
 - bash: |
     npm install 
@@ -16,15 +24,7 @@ steps:
     PathtoPublish: '$(System.DefaultWorkingDirectory)/build$(Build.BuildId).zip'
     artifactName: 'drop'
 
-
-variables:
-  # Azure service connection established during pipeline creation
-  azureSubscription: <Name of your Azure subscription>
-  appName: azure-function-app
-  # Agent VM image name
-  vmImageName: 'ubuntu-latest'
-
-- task: AzureFunctionApp@1 # Add this at the end of your file
+- task: AzureFunctionApp@1
   inputs:
     azureSubscription: <Azure service connection>
     appType: functionAppLinux # default is functionApp
