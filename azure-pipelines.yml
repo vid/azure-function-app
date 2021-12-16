@@ -3,11 +3,17 @@ pool:
 
 variables:
   # Azure service connection established during pipeline creation
-  azureSubscription: 007d3023-57fb-404f-8bec-1ede5cded2ba
-  appName: azure-function-app
+  azureSubscription: 'Azure subscription 1(1891f709-d05d-47f9-95d1-14d23f0ea673)'
+  appName: auzre-function-app
   # Agent VM image name
   vmImageName: 'ubuntu-latest'
-
+ 
+# - task: AzureFunctionApp@1
+#   inputs:
+#     azureSubscription: 'Azure subscription 1(1891f709-d05d-47f9-95d1-14d23f0ea673)'
+#     appType: 'functionAppLinux'
+#     appName: 'auzre-function-app'
+#     package: '$(System.DefaultWorkingDirectory)/**/*.zip'
 steps:
 - bash: |
     npm install 
@@ -26,7 +32,7 @@ steps:
 
 - task: AzureFunctionApp@1
   inputs:
-    azureSubscription: 007d3023-57fb-404f-8bec-1ede5cded2ba
+    azureSubscription: 'Azure subscription 1(1891f709-d05d-47f9-95d1-14d23f0ea673)'
     appType: functionAppLinux # default is functionApp
     appName: $(appName)
     package: $(System.ArtifactsDirectory)/**/*.zip
