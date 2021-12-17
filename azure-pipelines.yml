@@ -1,6 +1,7 @@
 pool:
       vmImage: ubuntu-latest
  
+# use     appName: 'appsvc-fnc-dev-prwapp-loadtesting-linux' for container
 
 steps:
 - bash: |
@@ -30,7 +31,7 @@ steps:
   inputs:
     azureSubscription: rtw-devtest-devops-svc-connection
     appType: functionAppLinux # default is functionApp
-    appName: 'appsvc-fnc-dev-prwapp-loadtesting-linux'
+    appName: 'appsvc-fnc-dev-loadtesting-linux'
     package: '$(System.DefaultWorkingDirectory)/build$(Build.BuildId).zip'
     #Uncomment the next lines to deploy to a deployment slot
     #Note that deployment slots is not supported for Linux Dynamic SKU
