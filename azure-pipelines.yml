@@ -30,7 +30,7 @@ steps:
   inputs:
     azureSubscription: rtw-devtest-devops-svc-connection
     appType: functionAppLinux # default is functionApp
-    appName: 'azure-function-app-app'
+    appName: 'appsvc-fnc-dev-prwapp-loadtesting-linux'
     package: $(System.ArtifactsDirectory)/**/*.zip
     #Uncomment the next lines to deploy to a deployment slot
     #Note that deployment slots is not supported for Linux Dynamic SKU
