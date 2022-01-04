@@ -1,16 +1,20 @@
-module.exports = async function (context, req) {
-    context.log('JavaScript HTTP trigger function processed a request.');
+const { getOptionsOrDefault } = require('@haibun/core/build/lib/util');
+const { runWith } = require('@haibun/core/build/lib/run');
+const { getDefaultWorld, asFeatures, } = require('@haibun/core/build/lib/test/lib');
 
-    if (req.query.name || (req.body && req.body.name)) {
-        context.res = {
-            status: 200, /* Defaults to 200 */
-            body: "Hello " + (req.query.name || req.body.name) + "! Welcome to Azure Functions!"
-        };
+module.exports = async function (context, req) {
+    let body = 'no directive';
+    if (context.query.run) {
+        const specl = getOptionsOrDefault();
+
+        const { world } = getDefaultWorld(0);
+
+        const features = asFeatures(inFeatures);
+        const backgrounds = asFeatures([]);
+
+        const res = await runWith({ specl, features, backgrounds, addSteppers: [], world, extraOptions: {} });
+        body = JSON.stringify(res);
     }
-    else {
-        context.res = {
-            status: 200,
-            body: "Hello there! Welcome to Azure Functions!"
-        };
-    }
-};
+    context.log({ body });
+    context.res = { body }
+}
