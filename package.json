@@ -1,19 +1,9 @@
 {
-  "name": "azure-function-app",
-  "version": "1.0.0",
+  "name": "",
+  "version": "",
   "description": "",
-  "main": "index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+  "scripts" : {
+    "test": "echo \"No tests yet...\""
   },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/vid/azure-function-app.git"
-  },
-  "author": "",
-  "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/vid/azure-function-app/issues"
-  },
-  "homepage": "https://github.com/vid/azure-function-app#readme"
+  "author": ""
 }
