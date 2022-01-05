@@ -9,6 +9,10 @@ steps:
     npm run build --if-present
     npm prune --production
 
+- script: |
+    echo $(azureSubscription)
+    echo $(appName)
+
 # - task: AzureFunctionApp@1
 #   inputs:
 #     azureSubscription: 'Azure subscription 1(1891f709-d05d-47f9-95d1-14d23f0ea673)'
