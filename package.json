@@ -10,6 +10,7 @@
     "@azure/functions": "^3.0.0",
     "@haibun/core": "^1.2.0",
     "@haibun/domain-webpage": "^1.1.0",
-    "@haibun/web-playwright": "^1.3.0"
+    "@haibun/web-playwright": "^1.3.0",
+    "playwright": "^1.17.1"
   }
 }
