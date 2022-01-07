@@ -10,4 +10,5 @@ steps:
   inputs: 
     azureSubscription: $(azureSubscription)
     appName: $(containerName)
-    imageName: nostriluu/azurefunctionsimage
+    imageName: nostriluu/azurefunctionsimage:v1.0.0
+    
