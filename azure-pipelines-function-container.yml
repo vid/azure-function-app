@@ -1,13 +1,14 @@
+
 trigger:
-  - main
-  
+- function-container
+
 pool:
-      vmImage: ubuntu-latest
+  vmImage: ubuntu-latest
 
 steps:
-
 - task: AzureFunctionAppContainer@1
-  inputs:
+  inputs: 
     azureSubscription: $(azureSubscription)
     appName: $(containerName)
-    imageName: nostriluu/azurefunctionsimage@v1.0.9
+    imageName: nostriluu/azurefunctionsimage:v1.0.6
+    
