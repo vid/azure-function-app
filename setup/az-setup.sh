@@ -20,7 +20,7 @@ az storage account create --name ${STORAGE_ACCOUNT} --location ${LOC} --resource
 
 az functionapp plan create --resource-group ${PROJECT_BASE}-rg --name ${PROJECT_BASE}-asp --location ${LOC} --number-of-workers 1 --sku EP1 --is-linux && \
 
-az functionapp create --name ${PROJECT_BASE}-app --storage-account ${STORAGE_ACCOUNT} --resource-group ${PROJECT_BASE}-rg --plan ${PROJECT_BASE}-asp --deployment-container-image-name ${DOCKER_ID}/${IMAGE_NAME}:${IMAGE_TAG} && \
+az functionapp create --name ${PROJECT_BASE}-app --storage-account ${STORAGE_ACCOUNT} --resource-group ${PROJECT_BASE}-rg --plan ${PROJECT_BASE}-asp --functions-version 3 --deployment-container-image-name ${DOCKER_ID}/${IMAGE_NAME}:${IMAGE_TAG} && \
 
 O=`az storage account show-connection-string --resource-group ${PROJECT_BASE}-rg --name ${STORAGE_ACCOUNT}  --query connectionString --output tsv`
 # the following may break if output order changes
