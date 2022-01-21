@@ -7,7 +7,7 @@
 source .env
 
 if [ ! $PROJECT_BASE ]; then
-  echo 'please env PROJECT_BASE, LOC, DOCKER_ID, IMAGE_NAME, IMAGE_TAG'
+  echo 'please define PROJECT_BASE, LOC, DOCKER_ID, IMAGE_NAME, IMAGE_TAG in .env'
   exit 1;
 fi
 
