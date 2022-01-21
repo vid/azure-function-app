@@ -1,17 +1,22 @@
 import { AzureFunction, Context, HttpRequest } from "@azure/functions"
 
-import WebPlaywright from '@haibun/web-playwright/build/web-playwright';
-import DomainWebpage from '@haibun/domain-webpage/build/domain-webpage';
-import { testWithDefaults } from '@haibun/core/build/lib/test/lib';
+import runWithOptions from '@haibun/core/build/lib/run-with-options';
+import { getOptionsOrDefault } from '@haibun/core/build/lib/util';
 
-const inFeatures = [{ path: '/features/test.feature', content: `On the https://www.canada.ca webpage\nshould see "English"\nClick "English"\nURI should start with https://www.canada.ca/en` }];
-const httpTrigger: AzureFunction = async function (context: Context, req: HttpRequest) {
+export const httpTrigger: AzureFunction = async function (context: Context, req: HttpRequest) {
     let body;
+    console.log('env', process.env);
+
     if (req.query.run) {
         process.env.HAIBUN_LOG_LEVEL = 'debug';
-        const addSteppers = [WebPlaywright, DomainWebpage];
-        const { result } = await testWithDefaults(inFeatures, addSteppers)
-        body = result;
+        const base = 'tests';
+        const specl = getOptionsOrDefault(base);
+        const protoOptions = { options: {}, extraOptions: {} };
+        const featureFilter = ['account-login/'];
+
+        const options = { loops: 2, members: 2, logLevel: 'debug', logFollow: '', splits: [{}], trace: false, specl, base, protoOptions, featureFilter };
+        const result = await runWithOptions(options)
+        body = ['ok', 'allFailures', 'passed', 'failed', 'totalRan', 'runTime'].reduce((all, i) => ({ ...all, [i]: result[i] }), {});
     } else {
         body = "no directive"
     }
@@ -19,4 +24,3 @@ const httpTrigger: AzureFunction = async function (context: Context, req: HttpRe
     context.res = { body }
 }
 
-export default httpTrigger;
