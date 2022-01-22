@@ -1,0 +1,11 @@
+{
+  "mode": "all",
+  "steppers": [
+    "~@haibun/domain-webpage/build/domain-webpage",
+    "~@haibun/web-playwright/build/web-playwright",
+    "vars",
+    "credentials",
+    "haibun"
+  ],
+  "features": {}
+}
