@@ -7,7 +7,7 @@ export const httpTrigger: AzureFunction = async function (context: Context, req:
     let body;
     console.log('env', process.env);
 
-    if (req.query.run) {
+    if (req.query?.run) {
         process.env.HAIBUN_LOG_LEVEL = 'debug';
         const base = 'tests';
         const specl = getOptionsOrDefault(base);
