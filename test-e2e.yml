@@ -19,7 +19,7 @@ pool:
   vmImage: ubuntu-
   
 stages:
-- stage: e2etests-stage
+- stage: ste2etests
   jobs:
   - job: e2etests
     condition: eq(1,2)
