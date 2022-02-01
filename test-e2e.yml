@@ -44,7 +44,7 @@ jobs:
   - job: publish_e2e_artifacts
     dependsOn: [e2etests]
     steps:
-        - publish: '$(Build.SourcesDirectory)/capture'
+        - publish: '$(Build.SourcesDirectory)'
           artifact: e2e_capture
           displayName: Publish e2e artifact            
 
