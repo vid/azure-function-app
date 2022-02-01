@@ -1,3 +1,4 @@
+
 resources:
   repositories:
   - repository: e2etest # The name used to reference this repository in the checkout step
@@ -16,6 +17,9 @@ trigger:
 
 pool:
   vmImage: ubuntu-
+  
+stages:
+- stage: e2etests-stage
   jobs:
   - job: e2etests
     condition: eq(1,2)
@@ -41,4 +45,5 @@ pool:
 
         - publish: '$(Build.SourcesDirectory)/capture'
           artifact: e2e-capture
-          displayName: Publish e2e artifact            
+          displayName: Publish e2e test artifacts
+
