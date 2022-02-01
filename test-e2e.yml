@@ -22,7 +22,7 @@ stages:
 - stage: ste2etests
   jobs:
   - job: e2etests
-    condition: eq(1,2)
+#    condition: eq(1,2)
     #dependsOn: Deployment
     #condition: succeeded()
     timeoutInMinutes: 120
