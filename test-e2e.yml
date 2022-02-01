@@ -1,0 +1,44 @@
+resources:
+  repositories:
+  - repository: e2etest # The name used to reference this repository in the checkout step
+    type: github
+    endpoint: jaysonmc
+    name: jaysonmc/temp-ocio-powerplatform-bdd-tests
+    ref: test-e2e
+
+variables:
+- name: HAIBUN_ENVC
+- name: HAIBUN_O_WEBPLAYWRIGHT_CAPTURE_VIDEO
+- name: HAIBUN_O_WEBPLAYWRIGHT_STEP_CAPTURE_SCREENSHOT
+
+trigger:
+- test-e2e
+
+pool:
+  vmImage: ubuntu-
+  jobs:
+  - job: e2etests
+    condition: eq(1,2)
+    #dependsOn: Deployment
+    #condition: succeeded()
+    timeoutInMinutes: 120
+    pool:
+        vmImage: 'ubuntu-latest'
+    container:
+        image: mcr.microsoft.com/playwright:focal 
+    steps:
+        - checkout: e2etest     
+        - task: Npm@1
+          inputs:
+            command: 'install'
+          displayName: 'installing dependencies'
+
+  # using CmdLine instead of Npm because npm buffers the entire output
+        - task: CmdLine@2
+          displayName: 'Running e2e tests'
+          inputs:
+            script: npm run test-pipeline
+
+        - publish: '$(Build.SourcesDirectory)/capture'
+          artifact: e2e-capture
+          displayName: Publish e2e artifact            
