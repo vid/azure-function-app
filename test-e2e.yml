@@ -1,11 +1,10 @@
-
 resources:
   repositories:
   - repository: e2etest # The name used to reference this repository in the checkout step
     type: github
     endpoint: jaysonmc
     name: jaysonmc/temp-ocio-powerplatform-bdd-tests
-    ref: test-e2e
+    ref: for-e2e-pipeline
 
 variables:
 - name: HAIBUN_ENVC
@@ -15,11 +14,6 @@ variables:
 trigger:
 - test-e2e
 
-pool:
-  vmImage: ubuntu-
-  
-stages:
-- stage: ste2etests
   jobs:
   - job: e2etests
 #    condition: eq(1,2)
@@ -30,6 +24,7 @@ stages:
         vmImage: 'ubuntu-latest'
     container:
         image: mcr.microsoft.com/playwright:focal 
+
     steps:
         - checkout: e2etest     
         - task: Npm@1
@@ -37,13 +32,21 @@ stages:
             command: 'install'
           displayName: 'installing dependencies'
 
-  # using CmdLine instead of Npm because npm buffers the entire output
-        - task: CmdLine@2
+        - task: CmdLine@2  # using CmdLine instead of Npm because npm buffers the entire output
           displayName: 'Running e2e tests'
+          continueOnError: true
           inputs:
             script: npm run test-pipeline
 
-        - publish: '$(Build.SourcesDirectory)/capture'
-          artifact: e2e-capture
-          displayName: Publish e2e test artifacts
+  - job: publish_e2e_artifacts
+    dependsonOn: e2etests
 
+    - publish: '$(Build.SourcesDirectory)/capture'
+      artifact: e2e_capture
+      displayName: Publish e2e artifact            
+
+  - job: exit_if_failed
+    dependsonOn: publish_e2e_artifacts
+    condition: eq(dependencies.e2etests.result,'Succeeded')
+    steps:
+    - script: echo e2e tests passed, continuing.
