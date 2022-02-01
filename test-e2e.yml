@@ -39,7 +39,14 @@ jobs:
             script: npm run test-pipeline
 
   - job: publish_e2e_artifacts
+    dependsOn: [e2etests]
     steps:
         - publish: '$(Build.SourcesDirectory)/capture'
           artifact: e2e_capture
           displayName: Publish e2e artifact            
+
+  - job: exit_if_failed
+    dependsOn: [publish_e2e_artifacts]
+    condition: eq(dependencies.e2etests.result,'Succeeded')
+    steps:
+      - script: echo e2e tests passed, continuing.
